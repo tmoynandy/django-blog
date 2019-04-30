@@ -124,3 +124,6 @@ STATIC_URL = '/static/'
 
 #for crispy with latest bootstrap
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+#to redirect to home page on login
+LOGIN_REDIRECT_URL = 'blog-home'
