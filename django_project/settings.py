@@ -127,3 +127,6 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 #to redirect to home page on login
 LOGIN_REDIRECT_URL = 'blog-home'
+
+#when someone tries to access unauthenticated url, redirect them to
+LOGIN_URL = 'login'
