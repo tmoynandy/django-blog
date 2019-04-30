@@ -122,6 +122,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+#for custom folder for saved pics
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_URL = '/media/'
+
 #for crispy with latest bootstrap
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
