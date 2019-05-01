@@ -3,7 +3,8 @@ from django.http import HttpResponse
 #importing Post model
 from .models import Post
 #list view
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
+
 
 # #dummy data
 # posts = [
@@ -40,5 +41,13 @@ def about(request):
 ##class based view of home instead of method based
 class PostListView(ListView):
     model = Post
-    template_name = 'blog/home.html'
-    context_object_name = 'posts'
+    template_name = 'blog/home.html' #by default it looks for <app>/<model>_<view>.html
+    context_object_name = 'posts'  # by default it is object
+
+    #newest post at top, oldest at bottom
+    ordering = ['-date_posted']
+
+class PostDetailView(DetailView):
+    model = Post
+    # context_object_name = 'post'
+    
