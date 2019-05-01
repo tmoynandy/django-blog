@@ -3,7 +3,7 @@ from django.http import HttpResponse
 #importing Post model
 from .models import Post
 #list view
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
 
 
 # #dummy data
@@ -50,4 +50,17 @@ class PostListView(ListView):
 class PostDetailView(DetailView):
     model = Post
     # context_object_name = 'post'
-    
+
+class PostCreateView(CreateView):
+    model = Post
+    # context_object_name = 'post'
+
+    ##specify the fields of the form
+    fields = ['title', 'content']
+
+    ##overwrite form valid method to make django know the logged in user is the author
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        #calling the parent class after overwrite
+        return super().form_valid(form)
+        ##needws to be redirected or error
