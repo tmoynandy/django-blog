@@ -13,7 +13,7 @@ class Profile(models.Model) :
         return str+' Profile'
 
     ##for resizing image - we create a custom save function, over parent save()
-    def save(self):
+    def save(self, *args, **kwargs):
         ##running save parent class
         super().save()
 

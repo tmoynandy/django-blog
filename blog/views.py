@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+##the get_object_404 is : either get me the data or send a 404
 from django.http import HttpResponse
 #importing Post model
+from django.contrib.auth.models import User
 from .models import Post
 #list view
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -48,6 +50,9 @@ class PostListView(ListView):
 
     #newest post at top, oldest at bottom
     ordering = ['-date_posted']
+    #pagination
+    paginate_by = 5
+    ## to access by url : http://localhost:8000/?page=<page-number>
 
 class PostDetailView(DetailView):
     model = Post
@@ -103,3 +108,16 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
             return True
         return False
         
+class UserPostListView(ListView):
+    model = Post
+    template_name = 'blog/user_post.html' #by default it looks for <app>/<model>_<view>.html
+    context_object_name = 'posts'  # by default it is object
+
+    #pagination
+    paginate_by = 5
+    ## to access by url : http://localhost:8000/?page=<page-number>
+
+    def get_queryset(self):
+        ##kwarg is query param of url
+        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        return Post.objects.filter(author=user).order_by('-date_posted')
