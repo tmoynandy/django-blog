@@ -4,6 +4,8 @@ from django.http import HttpResponse
 from .models import Post
 #list view
 from django.views.generic import ListView, DetailView, CreateView
+#so that unauthenticated users can't make posts
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 # #dummy data
@@ -51,7 +53,7 @@ class PostDetailView(DetailView):
     model = Post
     # context_object_name = 'post'
 
-class PostCreateView(CreateView):
+class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     # context_object_name = 'post'
 
